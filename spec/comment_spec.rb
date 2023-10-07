@@ -1,4 +1,3 @@
-# spec/models/comment_spec.rb
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
@@ -27,6 +26,4 @@ RSpec.describe Comment, type: :model do
 
     expect(post.comments_counter).to eq(1)
   end
-
-  # Add more tests for the Comment model as needed.
 end

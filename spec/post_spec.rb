@@ -1,4 +1,3 @@
-# spec/models/post_spec.rb
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
@@ -114,6 +113,4 @@ RSpec.describe Post, type: :model do
 
     expect(user.posts_counter).to eq(3)
   end
-
-  # Add more tests for your Post model methods or other custom behavior here.
 end

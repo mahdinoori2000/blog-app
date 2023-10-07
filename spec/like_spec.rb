@@ -1,4 +1,3 @@
-# spec/models/like_spec.rb
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
@@ -27,6 +26,4 @@ RSpec.describe Like, type: :model do
 
     expect(post.likes_counter).to eq(1)
   end
-
-  # Add more tests for the Like model as needed.
 end
