@@ -14,8 +14,8 @@ RSpec.describe Like, type: :model do
     user = User.create(name: 'Test User')
     post = user.posts.create(title: 'Test Post')
 
-    like1 = Like.create(user: user, post: post)
-    like2 = Like.create(user: user, post: post)
+    like1 = Like.create(user:, post:)
+    Like.create(user:, post:)
 
     post.reload
 

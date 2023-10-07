@@ -14,8 +14,8 @@ RSpec.describe Comment, type: :model do
     user = User.create(name: 'Test User')
     post = user.posts.create(title: 'Test Post')
 
-    comment1 = Comment.create(user: user, post: post, content: 'Comment 1')
-    comment2 = Comment.create(user: user, post: post, content: 'Comment 2')
+    comment1 = Comment.create(user:, post:, content: 'Comment 1')
+    Comment.create(user:, post:, content: 'Comment 2')
 
     post.reload
 

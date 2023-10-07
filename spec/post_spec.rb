@@ -11,7 +11,7 @@ RSpec.describe Post, type: :model do
   it 'validates maximum length of title' do
     post = Post.new(title: 'A' * 251)
     post.valid?
-    expect(post.errors[:title]).to include("is too long (maximum is 250 characters)")
+    expect(post.errors[:title]).to include('is too long (maximum is 250 characters)')
 
     post.title = 'A' * 250
     post.valid?
@@ -25,11 +25,11 @@ RSpec.describe Post, type: :model do
 
     post.comments_counter = -1
     post.valid?
-    expect(post.errors[:comments_counter]).to include("must be greater than or equal to 0")
+    expect(post.errors[:comments_counter]).to include('must be greater than or equal to 0')
 
     post.comments_counter = 'not_an_integer'
     post.valid?
-    expect(post.errors[:comments_counter]).to include("is not a number")
+    expect(post.errors[:comments_counter]).to include('is not a number')
   end
 
   it 'validates likes_counter is an integer greater than or equal to zero' do
@@ -39,11 +39,11 @@ RSpec.describe Post, type: :model do
 
     post.likes_counter = -1
     post.valid?
-    expect(post.errors[:likes_counter]).to include("must be greater than or equal to 0")
+    expect(post.errors[:likes_counter]).to include('must be greater than or equal to 0')
 
     post.likes_counter = 'not_an_integer'
     post.valid?
-    expect(post.errors[:likes_counter]).to include("is not a number")
+    expect(post.errors[:likes_counter]).to include('is not a number')
   end
 
   it 'returns five most recent comments' do
@@ -84,14 +84,14 @@ RSpec.describe Post, type: :model do
     user = User.create(name: 'Test User')
     post = user.posts.create(title: 'Test Post')
 
-    post.likes.create(user: user)
+    post.likes.create(user:)
     post.update_like_counter
     post.reload
 
     expect(post.likes_counter).to eq(1)
 
-    post.likes.create(user: user)
-    post.likes.create(user: user)
+    post.likes.create(user:)
+    post.likes.create(user:)
     post.update_like_counter
     post.reload
 
