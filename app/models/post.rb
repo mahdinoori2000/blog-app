@@ -14,4 +14,8 @@ class Post < ApplicationRecord
   def update_like_counter
     update(likes_counter: likes.size)
   end
+
+  def update_post_counter
+    update(posts_counter: posts.size)
+  end
 end
