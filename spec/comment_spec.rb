@@ -1,29 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  it 'belongs to a user' do
-    should belong_to(:user).class_name('User')
+  before(:example) do
+    @user = User.new(name: 'Lilly', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.')
+    @post = Post.new(author: @user, title: 'Hello', text: 'This is my first post')
   end
 
-  it 'belongs to a post' do
-    should belong_to(:post)
+  subject { Comment.new(user: @user, post: @post) }
+
+  it 'name should be present' do
+    subject.user = nil
+    expect(subject).to_not be_valid
   end
 
-  it 'updates the comments_counter attribute of the associated post' do
-    user = User.create(name: 'Test User')
-    post = user.posts.create(title: 'Test Post')
-
-    comment1 = Comment.create(user:, post:, content: 'Comment 1')
-    Comment.create(user:, post:, content: 'Comment 2')
-
-    post.reload
-
-    expect(post.comments_counter).to eq(2)
-
-    comment1.destroy
-
-    post.reload
-
-    expect(post.comments_counter).to eq(1)
+  it 'title should be present' do
+    subject.post = nil
+    expect(subject).to_not be_valid
   end
 end

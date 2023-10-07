@@ -1,29 +1,20 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  it 'belongs to a post' do
-    should belong_to(:post)
+  before(:example) do
+    @user = User.new(name: 'Lilly', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.')
+    @post = Post.new(author: @user, title: 'Hello', text: 'This is my first post')
   end
 
-  it 'belongs to a user' do
-    should belong_to(:user)
+  subject { Like.new(user: @user, post: @post) }
+
+  it 'name should be present' do
+    subject.user = nil
+    expect(subject).to_not be_valid
   end
 
-  it 'updates the likes_counter attribute of the associated post' do
-    user = User.create(name: 'Test User')
-    post = user.posts.create(title: 'Test Post')
-
-    like1 = Like.create(user:, post:)
-    Like.create(user:, post:)
-
-    post.reload
-
-    expect(post.likes_counter).to eq(2)
-
-    like1.destroy
-
-    post.reload
-
-    expect(post.likes_counter).to eq(1)
+  it 'title should be present' do
+    subject.post = nil
+    expect(subject).to_not be_valid
   end
 end

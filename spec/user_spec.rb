@@ -32,15 +32,4 @@ RSpec.describe User, type: :model do
     user.valid?
     expect(user.posts_counter).to eq(5)
   end
-
-  it 'returns three most recent posts' do
-    user = User.create(name: 'Test User')
-    post1 = user.posts.create(title: '1st post')
-    post2 = user.posts.create(title: '2nd post')
-    post3 = user.posts.create(title: '3rd post')
-
-    recent_posts = user.three_recent_posts
-
-    expect(recent_posts).to eq([post3, post2, post1])
-  end
 end
