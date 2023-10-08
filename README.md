@@ -139,4 +139,4 @@ Feel free to check the [issues page](https://github.com/mahdinoori2000/blog-app/
 
 ## 📝 License <a name="license"></a>
 
-This project is [MIT](./MIT) licensed.
+This project is [MIT](./MIT.md) licensed.
