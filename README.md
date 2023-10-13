@@ -80,9 +80,9 @@ Clone this repository to your desired folder:
 
 
 ### Run tests
-<!-- - Run the following script and style test:
+      - Run the following script for testing:
 
-      - rspec spec ./name_of_file_spec.rb -->
+      - rspec spec 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
