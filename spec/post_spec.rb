@@ -1,38 +1,68 @@
 require 'rails_helper'
 
-RSpec.describe Post, type: :model do
-  before(:example) do
-    @first_user = User.new(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
-                           bio: 'Driver from Mexico.')
+RSpec.describe Post do
+  describe 'validations' do
+    it 'requires a title' do
+      post = Post.new(title: nil)
+      expect(post).not_to be_valid
+    end
+
+    it 'has a maximum length for the title' do
+      post = Post.new(title: 'a' * 251)
+      expect(post).not_to be_valid
+    end
+
+    it 'requires a comment counter to be an integer' do
+      post = Post.new(comment_counter: '5')
+      expect(post).not_to be_valid
+    end
+
+    it 'requires comment counter to be greater than or equal to 0' do
+      post = Post.new(comment_counter: -1)
+      expect(post).not_to be_valid
+    end
   end
 
-  subject { Post.new(author: @first_user, title: 'Hello', text: 'This is my post') }
+  describe 'associations' do
+    it 'belongs to an author' do
+      association = Post.reflect_on_association(:author)
+      expect(association.macro).to eq(:belongs_to)
+    end
 
-  it 'title should be present' do
-    subject.title = nil
-    expect(subject).to_not be_valid
+    it 'has many likes' do
+      association = Post.reflect_on_association(:likes)
+      expect(association.macro).to eq(:has_many)
+    end
+
+    it 'has many comments' do
+      association = Post.reflect_on_association(:comments)
+      expect(association.macro).to eq(:has_many)
+    end
   end
 
-  it 'title should not be too long' do
-    subject.title = 'a' * 251
-    expect(subject).to_not be_valid
-  end
+  describe 'recent_comments method' do
+    it 'returns the 5 most recent comments' do
+      comments = []
+      post = nil
 
-  it 'comments counter should be greater than or equal to zero' do
-    subject.comments_counter = -1
-    expect(subject).to_not be_valid
-  end
 
-  it 'comments counter should be nil by default' do
-    expect(subject.comments_counter).to eq nil
-  end
+      ActiveRecord::Base.transaction do
+        user = User.create(name: 'John Doe')
+        post = Post.new(title: 'Sample Post', comment_counter: 0, like_counter: 0, author: user)
 
-  it 'likes counter should be greater than or equal to zero' do
-    subject.likes_counter = -1
-    expect(subject).to_not be_valid
-  end
+        comments << Comment.new(user:, post:, text: 'Comment 1')
+        comments << Comment.new(user:, post:, text: 'Comment 2')
+        comments << Comment.new(user:, post:, text: 'Comment 3')
+        comments << Comment.new(user:, post:, text: 'Comment 4')
+        comments << Comment.new(user:, post:, text: 'Comment 5')
+        comments << Comment.new(user:, post:, text: 'Comment 6')
 
-  it 'likes counter should be zero by default' do
-    expect(subject.likes_counter).to eq nil
+
+        post.save!
+        comments.each(&:save!)
+      end
+
+      expect(post.recent_comments(5)).to match_array(comments[-5..])
+    end
   end
 end

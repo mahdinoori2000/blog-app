@@ -1,20 +1,31 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
-  before(:example) do
-    @user = User.new(name: 'Lilly', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.')
-    @post = Post.new(author: @user, title: 'Hello', text: 'This is my first post')
+  describe 'associations' do
+    it 'belongs to a user' do
+      association = Like.reflect_on_association(:user)
+      expect(association.macro).to eq(:belongs_to)
+    end
+
+    it 'belongs to a post' do
+      association = Like.reflect_on_association(:post)
+      expect(association.macro).to eq(:belongs_to)
+    end
   end
+  describe 'update_likes_counter method' do
+    it 'increments the like counter of the associated post' do
+      post = nil
 
-  subject { Like.new(user: @user, post: @post) }
+      ActiveRecord::Base.transaction do
+        user = User.create(name: 'John Doe')
+        post = Post.new(title: 'Sample Post', comment_counter: 0, like_counter: 0, author: user)
+        like = Like.new(user:, post:)
 
-  it 'name should be present' do
-    subject.user = nil
-    expect(subject).to_not be_valid
-  end
+        post.save!
+        like.save!
+      end
 
-  it 'title should be present' do
-    subject.post = nil
-    expect(subject).to_not be_valid
+      expect(post.reload.like_counter).to eq(1)
+    end
   end
 end

@@ -1,35 +1,59 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it 'validates presence of name' do
-    user = User.new
-    user.valid?
-    expect(user.errors[:name]).to include("can't be blank")
+  describe 'validations' do
+    it 'requires a name' do
+      user = User.new(name: nil)
+      expect(user).not_to be_valid
+    end
+
+    it 'requires the name to be unique' do
+      User.create(name: 'John')
+      user = User.new(name: 'John')
+      expect(user).not_to be_valid
+    end
+
+    it 'requires a post counter' do
+      user = User.new(post_counter: nil)
+      expect(user).not_to be_valid
+    end
+
+    it 'requires the post counter to be an integer' do
+      user = User.new(post_counter: '5')
+      expect(user).not_to be_valid
+    end
   end
 
-  it 'should return the name correctly' do
-    user = User.create(name: 'Tom')
-    user.valid?
-    expect(user.name).to eq('Tom')
+  describe 'associations' do
+    it 'has many posts' do
+      user = User.reflect_on_association(:posts)
+      expect(user.macro).to eq(:has_many)
+    end
+
+    it 'has many likes' do
+      user = User.reflect_on_association(:likes)
+      expect(user.macro).to eq(:has_many)
+    end
+
+    it 'has many comments' do
+      user = User.reflect_on_association(:comments)
+      expect(user.macro).to eq(:has_many)
+    end
   end
 
-  it 'validates posts_counter is an integer greater than or equal to zero' do
-    user = User.new(posts_counter: 5)
-    user.valid?
-    expect(user.errors[:posts_counter]).to be_empty
+  describe 'recent_posts method' do
+    it 'returns the 3 most recent posts' do
+      user = User.create(name: 'John', post_counter: 0)
 
-    user.posts_counter = -1
-    user.valid?
-    expect(user.errors[:posts_counter]).to include('must be greater than or equal to 0')
+      posts = [
+        user.posts.create(title: 'Post 1'),
+        user.posts.create(title: 'Post 2'),
+        user.posts.create(title: 'Post 3'),
+        user.posts.create(title: 'Post 4'),
+        user.posts.create(title: 'Post 5')
+      ]
 
-    user.posts_counter = 'not_an_integer'
-    user.valid?
-    expect(user.errors[:posts_counter]).to include('is not a number')
-  end
-
-  it 'should return the post_counter number correctly' do
-    user = User.create(posts_counter: 5)
-    user.valid?
-    expect(user.posts_counter).to eq(5)
+      expect(user.recent_posts).to match_array(posts.last(3))
+    end
   end
 end
