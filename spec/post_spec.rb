@@ -45,7 +45,6 @@ RSpec.describe Post do
       comments = []
       post = nil
 
-
       ActiveRecord::Base.transaction do
         user = User.create(name: 'John Doe')
         post = Post.new(title: 'Sample Post', comment_counter: 0, like_counter: 0, author: user)
@@ -56,7 +55,6 @@ RSpec.describe Post do
         comments << Comment.new(user:, post:, text: 'Comment 4')
         comments << Comment.new(user:, post:, text: 'Comment 5')
         comments << Comment.new(user:, post:, text: 'Comment 6')
-
 
         post.save!
         comments.each(&:save!)
