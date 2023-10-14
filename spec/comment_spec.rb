@@ -18,9 +18,19 @@ RSpec.describe Comment, type: :model do
     expect(subject).to_not be_valid
   end
 
+  it 'calls update_comments_counter after save' do
+    allow(subject).to receive(:update_comments_counter).and_call_original
+
+    subject.save!
+
+    expect(subject).to have_received(:update_comments_counter)
+  end
+
   it 'increments comment_counter of associated post after save' do
-    expect do
-      subject.save!
-    end.to change { @post.reload.comment_counter }.by(1)
+    subject.save!
+
+    @post.reload
+
+    expect(@post.comment_counter).to eq(1)
   end
 end
