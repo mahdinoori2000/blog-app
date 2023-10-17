@@ -1,13 +1,12 @@
 class UsersController < ApplicationController
-  def index
-  end
+  def index; end
 
   def user
     user_id = params[:id]
     @user = {
       id: user_id,
-      name: "mahdi noori",
-      bio: "This is the bio of the user",
+      name: 'mahdi noori',
+      bio: 'This is the bio of the user'
     }
   end
 
@@ -17,17 +16,18 @@ class UsersController < ApplicationController
       id: user_id,
       post_text: 'this is the post text',
       likes: 5,
-      comments: 8,
+      comments: 8
     }
   end
-  def post 
+
+  def post
     post_id = params[:post_id]
     user_id = params[:id]
     @post = {
-      post_id: post_id,
-      user_id: user_id,
+      post_id:,
+      user_id:,
       post_text: 'this is post text',
-      comments: 5,
+      comments: 5
     }
   end
 end
