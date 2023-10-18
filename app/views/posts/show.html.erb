@@ -1,0 +1,10 @@
+<h1>Here is the post number <%= @post[:user_id] %> for the user number <%= @post[:Post_id] %></h1>
+<ul>
+<li>Post: <%= @post[:post_text] %></li>
+<% (1..@post[:comments]).each do |number| %>
+    <li>
+      <h5>Comment from user: <%=number+1 %></h5>
+      <p>This is the commnet text for the user <%= number+1 %></p>
+    </li>
+  <% end %>
+</ul>
