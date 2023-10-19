@@ -1,51 +1,42 @@
-# spec/controllers/posts_controller_spec.rb
-
 require 'rails_helper'
 
-RSpec.describe PostsController, type: :controller do
-  describe 'GET index' do
+RSpec.describe 'Posts', type: :request do
+  describe 'GET /users/:user_id/posts' do
     it 'returns a successful response' do
-      get :index, params: { id: 1 } # You can change the user ID as needed
-      expect(response).to have_http_status(:success)
+      get '/users/1/posts'
+      expect(response).to have_http_status(200)
     end
 
     it 'renders the index template' do
-      get :index, params: { id: 1 } # You can change the user ID as needed
+      get '/users/1/posts'
       expect(response).to render_template(:index)
     end
 
-    it 'assigns the correct posts information' do
-      get :index, params: { id: 1 } # You can change the user ID as needed
-      expect(assigns(:posts)).to eq({
-        id: '1',
-        post_text: 'this is the post text',
-        likes: 5,
-        comments: 8
-      })
+    it 'includes correct placeholder text in the response body' do
+      get '/users/1/posts'
+      expect(response.body).to include('Here is the post for the user')
+      expect(response.body).to include('Post: this is the post text')
+      expect(response.body).to include('Number of likes: 5')
+      expect(response.body).to include('Number of comments: 8')
     end
   end
 
-  describe 'GET show' do
+  describe 'GET /users/:user_id/posts/:id' do
     it 'returns a successful response' do
-      get :show, params: { id: 1, post_id: 1 } # You can change the user and post ID as needed
-      expect(response).to have_http_status(:success)
+      get '/users/1/posts/1'
+      expect(response).to have_http_status(200)
     end
 
     it 'renders the show template' do
-      get :show, params: { id: 1, post_id: 1 } # You can change the user and post ID as needed
+      get '/users/1/posts/1'
       expect(response).to render_template(:show)
     end
 
-    it 'assigns the correct post information' do
-      user_id = 1
-      post_id = 1
-      get :show, params: { id: user_id, post_id: post_id } # You can change the user and post ID as needed
-      expect(assigns(:post)).to eq({
-        post_id: post_id.to_s,
-        user_id: user_id.to_s,
-        post_text: 'this is post text',
-        comments: 5
-      })
+    it 'includes correct placeholder text in the response body' do
+      get '/users/1/posts/1'
+      expect(response.body).to include('Here is the post number 1 for the user number')
+      expect(response.body).to include('Post: this is post text')
+      expect(response.body).to include('Comment from user: 2')
     end
   end
 end
