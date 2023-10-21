@@ -1,12 +1,8 @@
 class PostsController < ApplicationController
   def index
-    user_id = params[:id]
-    @posts = {
-      id: user_id,
-      post_text: 'this is the post text',
-      likes: 5,
-      comments: 8
-    }
+    user_id = params[:user_id]
+    @user = User.find(user_id)
+    @posts = @user.posts
   end
 
   def show
