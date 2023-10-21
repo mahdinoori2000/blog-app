@@ -18,7 +18,7 @@ class PostsController < ApplicationController
 
   def create
     @current_user = current_user
-    @post = current_user.posts.new(post_params.merge(comments_counter: 0, likes_counter: 0))
+    @post = current_user.posts.new(post_params)
     if @post.save
       redirect_to user_post_url(@current_user, @post)
     else
