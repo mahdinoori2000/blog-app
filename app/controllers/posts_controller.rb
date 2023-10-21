@@ -6,13 +6,8 @@ class PostsController < ApplicationController
   end
 
   def show
-    post_id = params[:post_id]
-    user_id = params[:id]
-    @post = {
-      post_id:,
-      user_id:,
-      post_text: 'this is post text',
-      comments: 5
-    }
+    user_id = params[:user_id]
+    @user = User.find(user_id)
+    @post = @user.posts.find(params[:id])
   end
 end
