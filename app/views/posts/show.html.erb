@@ -4,7 +4,7 @@
 
     <div class="card mb-2" style="width: 100%;">
     <div class="card-body">
-      <h5 class="card-title">Post <%= @post.id %> By <%= @user.name %></h5>
+      <h5 class="card-title"><%= @post.title %> By <%= @user.name %></h5>
       <p class="card-text"><%= @post.text %></p>
       <div class="col-md-3 text-md-end col-sm-3" style="width: 100%;">
         <p class="text-muted mt-5"><span>Likes: <%= @post.like_counter %></span> <span>Comments: <%= @post.comment_counter %></span></p>

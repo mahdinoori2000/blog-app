@@ -25,9 +25,9 @@
       </div>
     </div>
     <% @posts.each_with_index do |post, index| %>
-    <div class="card mb-4" style="width: 100%;">
+    <div class="card mb-4" id="post-card" style="width: 100%;">
     <div class="card-body">
-      <h5 class="card-title">Post <%= index +1 %></h5>
+    <h5 class="card-title"><%= link_to post.title, user_post_path(@user, post)%></h5>
       <p class="card-text"><%= post.text %></p>
       <div class="col-md-3 text-md-end col-sm-3" style="width: 100%;">
         <p class="text-muted mt-5"><span>Likes: <%= post.like_counter %></span> <span>Comments: <%= post.comment_counter %></span></p>
