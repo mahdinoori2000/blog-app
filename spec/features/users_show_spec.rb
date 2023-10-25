@@ -30,4 +30,18 @@ RSpec.describe 'User Show Page', type: :feature do
   it "should displays the user's bio" do
     expect(page).to have_content(@user1.bio)
   end
+
+  it "should displays the first 3 posts" do
+    post_elements = all("#post-card")
+    expect(post_elements.count).to eq(3)
+  end
+
+  it "should display a button that let view all of a user's posts." do
+    expect(page).to have_link("See All Posts")
+  end
+
+  it "redirects to a user's post index page when 'View All Posts' button is clicked" do
+    click_link 'See All Posts'
+    expect(page).to have_current_path(user_posts_path(@user1))
+  end
 end
