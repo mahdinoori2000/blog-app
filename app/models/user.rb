@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, allow_blank: false, uniqueness: { case_sensitive: false }
   validates :email, presence: true, allow_blank: false
+  validates :encrypted_password, presence: true, allow_blank: false
   validates :post_counter, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
   def recent_posts
