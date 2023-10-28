@@ -20,10 +20,11 @@
     <% if can? :destroy, comment %>
         <%= button_to 'DELETE Comment', user_post_comment_path(@user, @post, comment), method: :delete %>
     <% end %>
-
-    <% if can? :destroy,  @post %>
-      <%= button_to 'DELETE Post', user_post_path(@user, @post), method: :delete %>
-    <% end %>
   <% end %> 
   </div>
+
+  <% if can? :destroy,  @post %>
+  <%= button_to 'DELETE Post', user_post_path(@user, @post), method: :delete %>
+<% end %>
+
 </div>
