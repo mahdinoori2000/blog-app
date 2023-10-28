@@ -29,6 +29,11 @@
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
   </div>
 
+  <div class="field outline mb-4">
+    <%= f.label :role, class: "mb-2" %><br />
+    <%= f.select :role, ['user', 'admin'], class: "form-control" %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Sign up", class: "btn btn-primary btn-block mb-3 w-10" %>
   </div>
