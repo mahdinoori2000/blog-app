@@ -83,7 +83,7 @@ Clone this repository to your desired folder:
       - Run the following script for testing:
 
       - rspec spec 
-
+.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
