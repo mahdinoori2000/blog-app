@@ -29,7 +29,7 @@
 
 # 📖 Blog APP <a name="about-project"></a>
 
-**Blog APP** Blog app is a fully funcioning website made with Ruby on Rails.It helps people post blogs and add comments, add likes, and create account and login. 
+**Blog APP** Blog app is a fully functioning website made with Ruby on Rails.It helps people post blogs and add comments, add likes, and create account and login. 
 
 ## 🛠 Built With <a name="built-with"></a>
 
@@ -89,7 +89,16 @@ Clone this repository to your desired folder:
 
 ## 👥 Authors <a name="authors"></a>
 :bust_in_silhouette: *Mahdi Noori*
+
 - GitHub: [@mahd inoori](https://github.com/mahdinoori2000)
+=======
+
+- GitHub: [Mahdi Noori](https://github.com/mahdinoori2000)
+
+
+- GitHub: [Mahdinoori](https://github.com/mahdinoori2000)
+
+
 - LinkedIn: [Mahdi Noori](https://www.linkedin.com/in/mahdi-noori-hc201/)
 
 
