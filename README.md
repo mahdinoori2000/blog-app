@@ -90,6 +90,9 @@ Clone this repository to your desired folder:
 ## 👥 Authors <a name="authors"></a>
 :bust_in_silhouette: *Mahdi Noori*
 
+- GitHub: [Mahdi Noori](https://github.com/mahdinoori2000)
+
+
 - GitHub: [Mahdinoori](https://github.com/mahdinoori2000)
 
 - LinkedIn: [Mahdi Noori](https://www.linkedin.com/in/mahdi-noori-hc201/)
